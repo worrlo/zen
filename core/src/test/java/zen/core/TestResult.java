@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestResult {
 
-    @Test public void init() {
+    @Test public void testInit() {
         Result<String> res = new Result<>(null,null);
         assertEquals(0, res.status());
         assertFalse(res.hasValue());
