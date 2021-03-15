@@ -9,14 +9,14 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestFilteredMapWriter {
+public class TestMapWriter {
     @Test public void testInit() {
-        Exception e = assertThrows(IllegalStateException.class, () -> new FilteredMapWriter(null));
+        Exception e = assertThrows(IllegalStateException.class, () -> new MapWriter(null));
         assertEquals("Map cannot be null", e.getMessage());
 
         assertEquals(
                 "HashMap(filter: NA, redact: false) {}",
-                new FilteredMapWriter(new HashMap<String, String>()).toString()
+                new MapWriter(new HashMap<String, String>()).toString()
         );
     }
 
@@ -25,7 +25,7 @@ public class TestFilteredMapWriter {
         map.put("my.database","myDB");
         map.put("my.user", null);
         map.put("donkey","true");
-        FilteredMapWriter fmw = new FilteredMapWriter(map).filter("my\\..*");
+        MapWriter fmw = new MapWriter(map).filter("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: my\\..*, redact: false) {my.database:myDB, my.user:null}",
@@ -34,7 +34,7 @@ public class TestFilteredMapWriter {
     }
 
     @Test public void testFilter02() {
-        FilteredMapWriter fmw = new FilteredMapWriter(
+        MapWriter fmw = new MapWriter(
                 Json.createObjectBuilder()
                     .add("my.database", "myDB")
                     .add("my.user", JsonValue.NULL)
@@ -53,7 +53,7 @@ public class TestFilteredMapWriter {
         map.put("my.database","myDB");
         map.put("my.server", null);
         map.put("donkey","true");
-        FilteredMapWriter fmw = new FilteredMapWriter(map).redact("my\\..*");
+        MapWriter fmw = new MapWriter(map).redact("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: NA, redact: true) {my.database:SET, my.server:NOT SET, donkey:true}",
@@ -62,7 +62,7 @@ public class TestFilteredMapWriter {
     }
 
     @Test public void testRedact02() {
-        FilteredMapWriter fmw = new FilteredMapWriter(
+        MapWriter fmw = new MapWriter(
                 Json.createObjectBuilder()
                         .add("my.database", "myDB")
                         .add("my.server", JsonValue.NULL)
