@@ -12,7 +12,7 @@ public class DiagnosticData extends RuntimeException {
         super();
         data = new ArrayList<>();
         for(Object obj : objects) {
-            if(obj.getClass().isArray())
+            if(obj != null && obj.getClass().isArray())
                 data.add(Arrays.toString((Object[])obj));
             else
                 data.add(String.valueOf(obj));
