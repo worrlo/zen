@@ -9,14 +9,14 @@ import java.util.LinkedHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestMapWriter {
+public class TestMapFilter {
     @Test public void testInit() {
-        Exception e = assertThrows(IllegalStateException.class, () -> new MapWriter(null));
+        Exception e = assertThrows(IllegalStateException.class, () -> new MapFilter(null));
         assertEquals("Map cannot be null", e.getMessage());
 
         assertEquals(
                 "HashMap(filter: NA, redact: false) {}",
-                new MapWriter(new HashMap<String, String>()).toString()
+                new MapFilter(new HashMap<String, String>()).toString()
         );
     }
 
@@ -25,7 +25,7 @@ public class TestMapWriter {
         map.put("my.database","myDB");
         map.put("my.user", null);
         map.put("donkey","true");
-        MapWriter fmw = new MapWriter(map).filter("my\\..*");
+        MapFilter fmw = new MapFilter(map).filter("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: my\\..*, redact: false) {my.database:myDB, my.user:null}",
@@ -34,7 +34,7 @@ public class TestMapWriter {
     }
 
     @Test public void testFilter02() {
-        MapWriter fmw = new MapWriter(
+        MapFilter fmw = new MapFilter(
                 Json.createObjectBuilder()
                     .add("my.database", "myDB")
                     .add("my.user", JsonValue.NULL)
@@ -53,7 +53,7 @@ public class TestMapWriter {
         map.put("my.database","myDB");
         map.put("my.server", null);
         map.put("donkey","true");
-        MapWriter fmw = new MapWriter(map).redact("my\\..*");
+        MapFilter fmw = new MapFilter(map).redact("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: NA, redact: true) {my.database:SET, my.server:NOT SET, donkey:true}",
@@ -62,7 +62,7 @@ public class TestMapWriter {
     }
 
     @Test public void testRedact02() {
-        MapWriter fmw = new MapWriter(
+        MapFilter fmw = new MapFilter(
                 Json.createObjectBuilder()
                         .add("my.database", "myDB")
                         .add("my.server", JsonValue.NULL)

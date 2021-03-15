@@ -6,25 +6,25 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class MapWriter
+public class MapFilter
 {
     final String FIELD_FORMAT = ", %s:%s";
     private String filter;
     private String redact;
     final Map<?,?> map;
 
-    public MapWriter(Map<?,?> data) {
+    public MapFilter(Map<?,?> data) {
         this.map = data;
         if(map == null)
             throw new IllegalStateException("Map cannot be null");
     }
 
-    public MapWriter filter(String regex) {
+    public MapFilter filter(String regex) {
         filter = regex;
         return this;
     }
 
-    public MapWriter redact(String regex) {
+    public MapFilter redact(String regex) {
         redact = regex;
         return this;
     }
