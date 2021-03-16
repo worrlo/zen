@@ -6,6 +6,7 @@ import javax.json.Json;
 import javax.json.JsonValue;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,16 +26,16 @@ public class TestMapFilter {
         map.put("my.database","myDB");
         map.put("my.user", null);
         map.put("donkey","true");
-        MapFilter fmw = new MapFilter(map).filter("my\\..*");
+        MapFilter mf = new MapFilter(map).filter("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: my\\..*, redact: false) {my.database:myDB, my.user:null}",
-                fmw.toString()
+                mf.toString()
         );
     }
 
     @Test public void testFilter02() {
-        MapFilter fmw = new MapFilter(
+        MapFilter mf = new MapFilter(
                 Json.createObjectBuilder()
                     .add("my.database", "myDB")
                     .add("my.user", JsonValue.NULL)
@@ -44,7 +45,21 @@ public class TestMapFilter {
 
         assertEquals(
                 "JsonObjectImpl(filter: my\\..*, redact: false) {my.database:\"myDB\", my.user:null}",
-                fmw.toString()
+                mf.toString()
+        );
+    }
+    
+    @Test public void testFilter03() {
+        Properties props = new Properties();
+        props.setProperty("my.database", "myDB");
+        props.setProperty("my.user", "");
+        props.setProperty("donkey", "true");
+
+        MapFilter mf = new MapFilter(props).filter("my\\..*");
+
+        assertEquals(
+                "Properties(filter: my\\..*, redact: false) {my.database:myDB, my.user:}",
+                mf.toString()
         );
     }
 
@@ -53,16 +68,16 @@ public class TestMapFilter {
         map.put("my.database","myDB");
         map.put("my.server", null);
         map.put("donkey","true");
-        MapFilter fmw = new MapFilter(map).redact("my\\..*");
+        MapFilter mf = new MapFilter(map).redact("my\\..*");
 
         assertEquals(
                 "LinkedHashMap(filter: NA, redact: true) {my.database:SET, my.server:NOT SET, donkey:true}",
-                fmw.toString()
+                mf.toString()
         );
     }
 
     @Test public void testRedact02() {
-        MapFilter fmw = new MapFilter(
+        MapFilter mf = new MapFilter(
                 Json.createObjectBuilder()
                         .add("my.database", "myDB")
                         .add("my.server", JsonValue.NULL)
@@ -71,7 +86,21 @@ public class TestMapFilter {
         ).redact("my\\..*");
         assertEquals(
                 "JsonObjectImpl(filter: NA, redact: true) {my.database:SET, my.server:NOT SET, donkey:true}",
-                fmw.toString()
+                mf.toString()
+        );
+    }
+
+    @Test public void testRedact03() {
+        Properties props = new Properties();
+        props.setProperty("my.database", "myDB");
+        props.setProperty("my.user", "");
+        props.setProperty("donkey", "true");
+
+        MapFilter mf = new MapFilter(props).redact("my\\..*");
+
+        assertEquals(
+                "Properties(filter: NA, redact: true) {my.database:SET, donkey:true, my.user:NOT SET}",
+                mf.toString()
         );
     }
 }

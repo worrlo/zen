@@ -44,7 +44,7 @@ public class MapFilter
                     Object val = map.get(k);
                     String value;
                     if(key.matches(redact)) {
-                        value = val == null || val == JsonValue.NULL
+                        value = !Fn.isSet(val) || val == JsonValue.NULL
                                     ? "NOT SET"
                                     : "SET";
                     }
