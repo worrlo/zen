@@ -2,7 +2,6 @@ package zen.core;
 
 import zen.util.MapFilter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
@@ -12,7 +11,7 @@ public interface Inputs {
 
     class BasicInputs implements Inputs
     {
-        private LinkedHashMap<String, ArrayList<String>> data;
+        private final LinkedHashMap<String, ArrayList<String>> data;
         public BasicInputs() {
             data = new LinkedHashMap<>();
         }
