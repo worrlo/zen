@@ -12,6 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="core" target="15" />
+      <module name="srch" target="15" />
       <module name="tools" target="15" />
       <module name="zen" target="15" />
     </bytecodeTargetLevel>
