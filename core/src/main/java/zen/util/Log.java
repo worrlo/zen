@@ -190,4 +190,23 @@ public class Log {
         }
     }
 
+    public static interface Utils
+    {
+        default void log(String level, String message, Object...objects)
+        {
+            String msg = null;
+            if (message != null)
+                msg = String.format(message, objects);
+            Log.entry(level, 4, null, msg);
+        }
+        default void log(String level, Throwable t, String message, Object...objects)
+        {
+            Log.entry(level, 4, DiagnosticData.on(t, objects), message);
+        }
+        default void log(String level, DiagnosticData dd, String message)
+        {
+            Log.entry(level, 4, dd, message);
+        }
+    }
+
 }
