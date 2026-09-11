@@ -10,6 +10,7 @@ public class SearchValue<V>
     private V[] values;
     private SearchOperand op;
 
+    @SuppressWarnings("unchecked")
     public SearchValue(SearchOperand op, V... vals)
     {
         this.values = vals;

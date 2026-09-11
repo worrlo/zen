@@ -19,12 +19,14 @@ public class SearchSet<V>
     }
 
     public Set<V> getIncluded() {return include;}
+    @SuppressWarnings("unchecked")
     public SearchSet<V> include(V... objs) {
         add(include, objs);
         return this;
     }
 
     public Set<V> getExcluded() {return exclude;}
+    @SuppressWarnings("unchecked")
     public SearchSet<V> exclude(V... objs) {
         add(exclude, objs);
         return this;
@@ -47,6 +49,7 @@ public class SearchSet<V>
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     private void add(Set<V> set, V... objs)
     {
         if (objs != null && objs.length > 0)
