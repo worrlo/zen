@@ -9,7 +9,7 @@
         <version>${zen.version}</version>
     </parent>
 
-    <artifactId>tools</artifactId>
+    <artifactId>zen-tools</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

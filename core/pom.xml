@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>zen</groupId>
-    <artifactId>core</artifactId>
+    <artifactId>zen-core</artifactId>
     <name>zen-core</name>
     <packaging>jar</packaging>
 
