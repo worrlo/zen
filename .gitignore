@@ -1,1 +1,5 @@
-target
+.ignore
+.repo
+
+**/keys/
+**/target/
