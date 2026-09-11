@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestAction {
     Action<String> action;
     @BeforeEach public void setup() {
-        action = new Action<>() {
+        action = new Action<String>() {
             @Override
             public Result<?> validate(String params) {
                 return new Result<>(params,

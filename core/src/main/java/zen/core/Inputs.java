@@ -23,7 +23,7 @@ public interface Inputs {
 
         @Override public String[] getParameterValues(String key) {
             ArrayList<String> list = data.get(key);
-            return list != null ? list.toArray(String[]::new) : null;
+            return list != null ? list.toArray(new String[0]) : null;
         }
 
         public BasicInputs add(String key, String value) {
