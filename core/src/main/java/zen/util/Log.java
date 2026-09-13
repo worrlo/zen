@@ -12,11 +12,18 @@ import java.util.concurrent.TimeUnit;
 public class Log {
     private static final BlockingQueue<Entry> QUEUE = new LinkedTransferQueue<Entry>();
 
+    /**
+     * Formatter
+     */
     @FunctionalInterface
     public interface Formatter {
         void writeEntry(Entry entry);
     }
 
+    /**
+     * Object to describe a Log messge
+     * Entry
+     */
     public static class Entry 
     {
         private final long epoch;
@@ -97,8 +104,9 @@ public class Log {
         QUEUE.add(buildEntry(level, depth, t, message));
     }
 
-    /*
+    /**
      * Background Consumer Service
+     * Service
      */
     public static class Service implements Callable<Void> 
     {
@@ -190,6 +198,11 @@ public class Log {
         }
     }
 
+    /**
+     * Utility interface to enable easy access to Log functions
+     * 
+     * Utils
+     */
     public static interface Utils
     {
         default void log(String level, String message, Object...objects)
