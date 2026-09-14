@@ -21,7 +21,7 @@
         <maven.compiler.target>21</maven.compiler.target>
         <junit.jupiter.version>RELEASE</junit.jupiter.version>
         <zen.version>1.0.0</zen.version>
-        <java.release.target>17</java.release.target>
+        <java.release.target>8</java.release.target>
     </properties>
 
     <dependencyManagement>
